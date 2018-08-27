@@ -1,0 +1,149 @@
+﻿<Window x:Class="Wizard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wizard"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        
+            
+        
+    </Window.Resources>
+        
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" x:Name="lblWorkflowType" Margin="5">Select Workflow Type :</Label>
+            <ComboBox Grid.Column="1" x:Name="cmbWorkflowTypes" Margin="5" ItemsSource="{Binding WorkflowTypes}"
+                      SelectedItem="{Binding SelectedType,Mode=TwoWay}">
+                
+            </ComboBox>
+            <Button Content=" Go " Margin="5" Grid.Column="2" HorizontalAlignment="Right" Click="Button_Click" Name="btnGo"/>
+        </Grid>
+       
+        <Popup
+              DataContext="{Binding PopupViewModel}"
+               Name="PopupLabel" 
+               HorizontalAlignment="Left"   
+               VerticalAlignment="Top"   
+               IsOpen="{Binding IsChecked,ElementName=btnPopupOK}" 
+               Placement="Right"  PlacementTarget="{Binding ElementName=lblWorkflowType}"
+             PopupAnimation="Fade"
+             AllowsTransparency="True"
+                >
+            <Grid>
+            <Border BorderBrush="Black" BorderThickness="1"  CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Background="Beige"  Margin="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                   
+                <TextBlock Grid.Column="1" Grid.Row="1" Name="popupText"   Margin="5">This is popup text..</TextBlock>
+                <ToggleButton Grid.Column="2" Grid.Row="2" x:Name="btnPopupOK" IsChecked="{Binding ShowFirstPopup, Mode=TwoWay}">OK</ToggleButton>
+                    
+                </Grid>
+            </Border>
+            </Grid>
+
+
+
+
+        </Popup>
+        
+        <Popup 
+               Name="PopupCombo" 
+              DataContext="{Binding PopupViewModel}"
+               HorizontalAlignment="Left"   
+               VerticalAlignment="Top"   
+               IsOpen="{Binding IsChecked,ElementName=btnPopupOK2}" 
+               Placement="Right"  PlacementTarget="{Binding ElementName=cmbWorkflowTypes}"
+             PopupAnimation="Fade"
+             AllowsTransparency="True">
+            <Grid>
+                <Border BorderBrush="Black" BorderThickness="1"  CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+
+                    <Grid Background="Beige" Margin="1"> 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="80*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="1" Grid.Column="0" Height="40" Width="40" x:Name="imgPopup" Margin="5">
+                            <Image.Source>
+                                <BitmapImage  UriSource="pack://application:,,,/icons/left.png"/>
+                            </Image.Source>
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="Image.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="imgPopup"
+                                Storyboard.TargetProperty="Opacity"
+                                From="1.0" To="0.1"  Duration="0:0:0.7"
+                                AutoReverse="True" RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
+                        </Image>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Name="popupText2"   Margin="5">This is popup text..</TextBlock>
+                        <ToggleButton Grid.Column="1" Grid.Row="2" 
+                                      HorizontalAlignment="Right"
+                                      x:Name="btnPopupOK2" IsChecked="{Binding ShowSecondPopup, Mode=TwoWay}">OK</ToggleButton>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Popup>
+        <Popup 
+                DataContext="{Binding PopupViewModel}"
+               Name="PopupButton" 
+               HorizontalAlignment="Left"   
+               VerticalAlignment="Top"   
+               IsOpen="{Binding IsChecked,ElementName=btnPopupOK3}" 
+               Placement="Right"  PlacementTarget="{Binding ElementName=btnGo}"
+            AllowsTransparency="True"
+            PopupAnimation="Fade">
+            <Grid>
+                <Border BorderBrush="Black" BorderThickness="1"  CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <Grid Background="Beige" Margin="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Name="popupText3"   Margin="5">This is popup text..</TextBlock>
+                    <ToggleButton Grid.Column="2" Grid.Row="2" x:Name="btnPopupOK3" IsChecked="{Binding ShowThirdPopup, Mode=TwoWay}">OK</ToggleButton>
+                </Grid>
+            </Border>
+             </Grid>
+        </Popup>
+        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Records}"/>
+    </DockPanel>
+</Window>
